@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visitor Pass</title>
+  <link rel="stylesheet" href="{% static '/css/visitorcss.css' %}" type="text/css" media="all" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+</head>
+<body>
+  <!-- Visitor Information Section -->
+  <h1>Visitor Pass</h1>
+
+<div class="visitor-card">
+    <h2>Visitor Information</h2>
+    <p>Name: <span id="visitorName">{{ name }}</span></p>
+    <p>Birth Date: <span id="visitorBirthDate">{{ birth_date }}</span></p>
+    <p>Age: <span id="visitorAge">{{ age }}</span></p>
+    <p>Email: <span id="visitorEmail">{{ email }}</span></p>
+</div>
+
+<div class="qr-code" id="qrCodeContainer"></div>
+
+<div class="download-pass">
+    <button id="downloadPassBtn">Download Visitor Pass</button>
+</div>
+
+<div class="expiry">
+    <p>Visitor Pass expires on: <span id="expiryDate"></span></p>
+</div>
+
+
+  <script>
+    // Extract visitor information from the template variables
+    const visitorName = "{{ name }}";
+    const visitorBirthDate = "{{ birth_date }}";
+    const visitorAge = "{{ age }}";
+    const visitorEmail = "{{ email }}";
+
+    // Display expiry date
+    const today = new Date();
+    const expiryDate = new Date(today);
+    expiryDate.setDate(expiryDate.getDate() + 1); // Set expiry to one day from today
+    document.getElementById('expiryDate').textContent = expiryDate.toDateString();
+
+    // Function to generate QR Code with visitor details
+    function generateQRCode(visitorData) {
+      const qrData = JSON.stringify({
+        visitorName: visitorData.visitorName,
+        visitorEmail: visitorData.visitorEmail,
+        expiry: expiryDate.toISOString()
+      });
+
+      // Create QR Code
+      new QRCode(document.getElementById('qrCodeContainer'), {
+        text: qrData,
+        width: 128,
+        height: 128,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    // Generate QR Code
+    generateQRCode({
+      visitorName,
+      visitorEmail
+    });
+
+    // Handle Download Button Click
+    document.getElementById('downloadPassBtn').addEventListener('click', function () {
+      const qrCodeCanvas = document.querySelector('#qrCodeContainer canvas');
+      const imageData = qrCodeCanvas.toDataURL('image/png');
+
+      // Trigger download
+      const link = document.createElement('a');
+      link.href = imageData;
+      link.download = 'visitor_pass.png';
+      link.click();
+    });
+  </script>
+</body>
+</html>

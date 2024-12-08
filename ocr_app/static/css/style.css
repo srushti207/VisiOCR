@@ -1,0 +1,93 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    border: #eaecec;
+  }
+  .container { 
+    /* text-align: center; */
+    margin: 0 auto; 
+    width: 80%;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+  }
+  .container-fluid {
+    margin: 0 auto;
+    width: 100%;
+    
+  }
+  h1 {
+    text-align: center;
+  }
+  
+  h1, h2 {
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  /* Instructions Section */
+  .instruction {
+    border: 1px solid #eaecec;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow:  0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9ffff;
+  }
+  
+  .instruction ol {
+    /* text-align: center; */
+    list-style: decimal;
+    padding: 0;
+  }
+  
+  .instruction li {
+    /* text-align: center; */
+    margin-bottom: 5px;
+  }
+  
+  /* Upload Section */
+  .upload-img {
+    display: none; /* Initially hide the upload section */
+  }
+  
+  #uploadButton {
+    background-color: #327078; /* Green color for upload button */
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  #uploadButton:disabled {
+    background-color: #b0e5e3; /* Disable button with gray color */
+    cursor: default;
+  }
+  
+  /* Display Information Section */
+  .display-info {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .display-info p {
+    margin-bottom: 10px;
+  }
+  
+  /* Visitor Email Section */
+  .visitor-email {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  #generatePass {
+    background-color: #3fadb5; /* Blue color for generate pass button */
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    
+  }

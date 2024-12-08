@@ -1,0 +1,127 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OCR Project</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css" media="all" />
+</head>
+<body>
+    <div class="container">
+        <h1>OCR Project</h1>
+  <div class="instruction" id="instructions">
+    <h2>Follow the Instruction while uploading the image</h2>
+    <ol>
+      <li>Uploaded image should be an Aadhaar card or Pan Card</li>
+      <li>Choose a clear and high-quality image.</li>
+      <li>Use properly scanned documents for better results.</li>
+      <li>Upload images in JPEG or PNG format.</li>
+      <li>Avoid background clutter and distortions.</li>
+      <li>Zoom in to verify text legibility before uploading.</li>
+    </ol>
+    <label>
+      <input type="checkbox" id="confirmCheckbox">
+      I have read and agree to the instructions.
+    </label>
+  </div>
+  <div class="upload-img" id="uploadSection"></div>
+  <form method="post" enctype="multipart/form-data" action="{% url 'upload_image' %}">
+    {% csrf_token %}
+    <input type="file" name="image">
+    <button type="submit" id="uploadButton" disabled>Upload Image</button>
+  </form>
+  <div class="display-info">
+    {% if error_message %}
+      <p style="color: red;">{{ error_message }}</p>
+      <form method="post" action="">
+        {% csrf_token %}
+        <h1>Visitor Information</h1>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="birth_date">Birth Date (DD/MM/YYYY):</label>
+        <input type="text" id="birth_date" name="birth_date" pattern="\d{1,2}/\d{1,2}/\d{4}" required>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br>
+        <button type="submit">Submit</button>
+      </form>
+    {% endif %}
+    {% if name %}
+      <h1>Visitor Information</h1>
+      <p>Name: {{ name }}</p>
+      <p>Birth Date: {{ birth_date }}</p>
+      <p>Age: {{ age }}</p>
+    {% endif %}
+  </div>
+  <div class="visitor-email">
+    <h2>Additional visitor information</h2>
+    <form id="visitor_info_form">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <button type="submit" id="generatePass">Generate Visitor Pass</button>
+    </form>
+  </div>
+</div>
+  <script>
+    $(document).ready(function() {
+      // Enable upload button only when checkbox is checked
+      $('#confirmCheckbox').change(function() {
+        if ($(this).is(':checked')) {
+          $('#uploadButton').prop('disabled', false);
+          $('#uploadSection').show();
+        } else {
+          $('#uploadButton').prop('disabled', true);
+          $('#uploadSection').hide();
+        }
+      });
+
+    //   Handle visitor pass generation
+    $(document).ready(function() {
+  $('#generatePass').click(function(event) {
+    event.preventDefault();
+    
+    // Get the form field values
+    const name = $('#name').val();
+    const birthDate = $('#birth_date').val();
+    const age = $('#age').val();
+    const email = $('#email').val();
+
+    console.log("Name:", name);           // Debug
+    console.log("Birth Date:", birthDate);  // Debug
+    console.log("Age:", age);              // Debug
+    console.log('Email:', email);          // Debug
+
+    // Check if all values are valid
+    if (name && birthDate && age && email) {
+      // URL encoding the values correctly
+      const redirectUrl = `/visitor_page/?name=${encodeURIComponent(name)}&birth_date=${encodeURIComponent(birthDate)}&age=${encodeURIComponent(age)}&email=${encodeURIComponent(email)}`;
+      window.location.href = redirectUrl;
+    } 
+  });
+});
+    });
+
+    
+    $('#generatePass').click(function(event) {
+    event.preventDefault();
+    const name = $('#name').val();
+    const birthDate = $('#birth_date').val();
+    const age = $('#age').val();
+    const email = $('#email').val();
+
+    console.log("Name:", name);
+    console.log("Birth Date:", birthDate);
+    console.log("Age:", age);
+    console.log('Email:', email);
+
+    // Check if all values are valid
+    // if (name && birthDate && age && email) {
+    //     const redirectUrl = `/visitor_page/?name=${encodeURIComponent(name)}&birth_date=${encodeURIComponent(birthDate)}&age=${encodeURIComponent(age)}&email=${encodeURIComponent(email)}`;
+    //     window.location.href = redirectUrl;
+    // }
+    const redirectUrl = `/visitor_page/?name=${encodeURIComponent(name)}&birth_date=${encodeURIComponent(birthDate)}&age=${encodeURIComponent(age)}&email=${encodeURIComponent(email)}`;
+    window.location.href = redirectUrl;
+});
+
+  </script>
+</body>
