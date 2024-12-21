@@ -47,7 +47,7 @@ ________________________________________________________________________________
 # Setup and Installation
 
 1. Clone the Repository
-   '''git clone https://github.com/srushti207/VisiOCR.git
+   git clone https://github.com/srushti207/VisiOCR.git
    cd VisiOCR
 2. Create a Virtual Environment
     python -m venv venv
@@ -88,6 +88,7 @@ VisiOCR/
 │   │   └── ...
 ├── requirements.txt
 └── README.md
+
 
 
 
