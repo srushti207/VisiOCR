@@ -70,7 +70,7 @@ ________________________________________________________________________________
 
 # Directory Structure
 
-VisiOCR/
+'''VisiOCR/
 ├── manage.py
 ├── VisiOCR/
 │   ├── settings.py
@@ -87,7 +87,7 @@ VisiOCR/
 │   ├── static/
 │   │   └── ...
 ├── requirements.txt
-└── README.md
+└── README.md'''
 
 
 
